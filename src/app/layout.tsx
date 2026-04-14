@@ -6,6 +6,10 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'Groundwater Assessment — Ranchi District',
   description: 'Assessment of Groundwater Status in Ranchi District, Jharkhand, India',
+  // Add the icons property here:
+  icons: {
+    icon: '/favicon.ico?v=2',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
