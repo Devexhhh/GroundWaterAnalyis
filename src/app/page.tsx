@@ -15,24 +15,26 @@ export default function HomePage() {
     <div className={`font-sans min-h-screen relative selection:bg-blue-100 selection:text-blue-900`}>
       {/* Hero */}
       <section className="topo-bg bg-water-faint border-b border-ink/8 min-h-[90vh] flex flex-col justify-center">
-        <div className="max-w-5xl mx-auto px-6 py-24">
-          <p className="section-label mb-6">Hydrological Study · Ranchi · 2026</p>
+        {/* Adjusted vertical padding for mobile (py-16) and larger screens (md:py-24) */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">Hydrological Study · Ranchi · 2026</p>
 
-          <h1 className="font-jakarta font-medium text-slate-900 leading-[1.05] tracking-tight text-5xl sm:text-6xl lg:text-[5.5rem] mb-8">
+          <h1 className="font-jakarta font-medium text-slate-900 leading-[1.1] tracking-tight text-4xl sm:text-6xl lg:text-[5.5rem] mb-6 sm:mb-8">
             Assessment of <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500">
               Groundwater
             </span> Status.
           </h1>
 
-          <p className="font-sans text-ink/55 text-lg max-w-xl leading-relaxed mb-10">
+          <p className="font-sans text-ink/55 text-base sm:text-lg max-w-xl leading-relaxed mb-8 sm:mb-10">
             Ranchi District, Jharkhand, India — a comprehensive 30-year analysis examining the severe impact of rapid urbanization on aquifer recharge, seasonal water-level fluctuations, and resource sustainability.
           </p>
 
-          <div className="flex flex-wrap gap-3">
+          {/* Changed buttons to stack on mobile and sit side-by-side on larger screens */}
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3">
             <Link
               href="/study-area"
-              className="inline-flex items-center gap-2 bg-water text-white font-sans text-sm font-medium px-5 py-2.5 rounded-sm hover:bg-water-light transition-colors"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 bg-water text-white font-sans text-sm font-medium px-5 py-3 sm:py-2.5 rounded-sm hover:bg-water-light transition-colors"
             >
               Begin Reading
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,23 +43,23 @@ export default function HomePage() {
             </Link>
             <Link
               href="/data-analysis"
-              className="inline-flex items-center gap-2 border border-ink/15 text-ink/70 font-sans text-sm font-medium px-5 py-2.5 rounded-sm hover:border-water hover:text-water transition-colors"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 border border-ink/15 text-ink/70 font-sans text-sm font-medium px-5 py-3 sm:py-2.5 rounded-sm hover:border-water hover:text-water transition-colors"
             >
               Jump to Analysis
             </Link>
           </div>
 
-          {/* Key stats strip */}
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-px bg-ink/8 border border-ink/8">
+          {/* Key stats strip: Updated to a 2x2 grid on mobile, and a 4-col row on large screens */}
+          <div className="mt-12 sm:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-px bg-ink/8 border border-ink/8">
             {[
               { v: '30 yrs', l: 'Data Period' },
               { v: '5,097', l: 'Area (km²)' },
-              { v: '8.27m', l: 'Avg. Depth (2024)' },
-              { v: '31.4%', l: 'Extraction Stage' },
+              { v: '8.27m', l: 'Avg. Depth' },
+              { v: '31.4%', l: 'Extraction' },
             ].map((s) => (
-              <div key={s.l} className="bg-white px-5 py-4">
-                <p className="font-mono text-xl font-medium text-ink">{s.v}</p>
-                <p className="font-sans text-xs text-ink/40 mt-1 uppercase tracking-wide">{s.l}</p>
+              <div key={s.l} className="bg-white px-4 sm:px-5 py-4">
+                <p className="font-mono text-lg sm:text-xl font-medium text-ink">{s.v}</p>
+                <p className="font-sans text-[10px] sm:text-xs text-ink/40 mt-1 uppercase tracking-wide">{s.l}</p>
               </div>
             ))}
           </div>
@@ -65,9 +67,10 @@ export default function HomePage() {
       </section>
 
       {/* Contents */}
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <div className="flex items-center gap-4 mb-12">
-          <p className="section-label">Table of Contents</p>
+      {/* Adjusted padding for the main content area */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div className="flex items-center gap-4 mb-8 sm:mb-12">
+          <p className="section-label text-sm sm:text-base">Table of Contents</p>
           <div className="h-px bg-ink/10 flex-1" />
         </div>
 
@@ -76,14 +79,15 @@ export default function HomePage() {
             <Link
               key={s.href}
               href={s.href}
-              className="group flex items-start gap-6 bg-white px-6 py-5 hover:bg-water-faint transition-colors"
+              // Tightened gap and padding for mobile readability
+              className="group flex items-start gap-4 sm:gap-6 bg-white px-4 py-4 sm:px-6 sm:py-5 hover:bg-water-faint transition-colors"
             >
-              <span className="font-mono text-xs text-water/50 mt-1 shrink-0 pt-0.5">{s.num}</span>
+              <span className="font-mono text-xs sm:text-sm text-water/50 mt-1 shrink-0 pt-0.5">{s.num}</span>
               <div className="flex-1">
-                <p className="font-jakarta font-medium text-ink text-lg group-hover:text-water transition-colors">
+                <p className="font-jakarta font-medium text-ink text-base sm:text-lg group-hover:text-water transition-colors">
                   {s.label}
                 </p>
-                <p className="font-sans text-sm text-ink/45 mt-1 leading-relaxed">{s.desc}</p>
+                <p className="font-sans text-xs sm:text-sm text-ink/45 mt-1 leading-relaxed">{s.desc}</p>
               </div>
               <svg className="w-4 h-4 text-ink/20 group-hover:text-water mt-1.5 shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

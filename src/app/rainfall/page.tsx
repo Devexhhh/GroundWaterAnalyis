@@ -12,13 +12,16 @@ export default function RainfallPage() {
         description="Annual rainfall data (combining verified CWC telemetric data and IMD historical estimates) correlated against observed groundwater levels to identify the breakdown of natural recharge patterns in Ranchi."
       />
 
-      <div className="page-container">
+      {/* Added responsive padding and max-width container */}
+      <div className="page-container px-4 sm:px-6 mx-auto max-w-5xl py-8 sm:py-12">
+        
         {/* Stats */}
-        <section className="mb-14">
-          <p className="section-label mb-6">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">
             Rainfall Statistics (Ranchi District)
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {/* Shifted to 2 columns on mobile, 4 on desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             <DataCard
               label="Normal Annual Rainfall"
               value="1,129"
@@ -43,15 +46,15 @@ export default function RainfallPage() {
               label="Correlation Shift"
               value="Divergent"
               unit=""
-              note="Natural correlation broken post-2021 by urbanization"
+              note="Natural correlation broken post-2021"
               accent="accent"
             />
           </div>
         </section>
 
         {/* Chart 3 */}
-        <section className="mb-14">
-          <p className="section-label mb-2">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-2 text-sm sm:text-base">
             Chart 03 — Rainfall vs Groundwater (Dual Axis)
           </p>
 
@@ -63,12 +66,12 @@ export default function RainfallPage() {
           />
 
           {/* Code Accordion */}
-          <details className="mt-4 border border-ink/10 rounded-sm p-4 bg-gray-50">
-            <summary className="cursor-pointer font-mono text-sm text-ink/60">
+          <details className="mt-3 sm:mt-4 border border-ink/10 rounded-sm p-3 sm:p-4 bg-gray-50">
+            <summary className="cursor-pointer font-mono text-xs sm:text-sm text-ink/60">
               View Python Code
             </summary>
-
-            <pre className="mt-3 text-xs overflow-x-auto">
+            {/* Kept overflow-x-auto for horizontal code scrolling */}
+            <pre className="mt-3 text-[10px] sm:text-xs overflow-x-auto">
               {`import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -103,8 +106,8 @@ plt.show()`}
         </section>
 
         {/* Chart 4 */}
-        <section className="mb-14">
-          <p className="section-label mb-2">Chart 04 — Correlation Analysis</p>
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-2 text-sm sm:text-base">Chart 04 — Correlation Analysis</p>
 
           <ChartEmbed
             title="Rainfall vs Groundwater Correlation"
@@ -114,12 +117,12 @@ plt.show()`}
           />
 
           {/* Code Accordion */}
-          <details className="mt-4 border border-ink/10 rounded-sm p-4 bg-gray-50">
-            <summary className="cursor-pointer font-mono text-sm text-ink/60">
+          <details className="mt-3 sm:mt-4 border border-ink/10 rounded-sm p-3 sm:p-4 bg-gray-50">
+            <summary className="cursor-pointer font-mono text-xs sm:text-sm text-ink/60">
               View Python Code
             </summary>
 
-            <pre className="mt-3 text-xs overflow-x-auto">
+            <pre className="mt-3 text-[10px] sm:text-xs overflow-x-auto">
               {`import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -155,17 +158,18 @@ plt.show()`}
         </section>
 
         {/* Rainfall data table */}
-        <section className="mb-14">
-          <p className="section-label mb-4">Rainfall Dataset (1994–2024)</p>
-          <div className="overflow-x-auto h-96 border border-ink/10 rounded-sm">
-            <table className="w-full bg-white text-sm relative">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Rainfall Dataset (1994–2024)</p>
+          <div className="overflow-x-auto h-80 sm:h-96 border border-ink/10 rounded-sm shadow-sm">
+            {/* Added min-w-[500px] so the table scales horizontally instead of breaking columns */}
+            <table className="w-full min-w-[500px] bg-white text-sm relative">
               <thead className="sticky top-0 z-10 shadow-sm">
                 <tr className="bg-water-faint">
                   {["Year", "Annual Rainfall (mm)", "Status / Observation"].map(
                     (h) => (
                       <th
                         key={h}
-                        className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50 border-b border-ink/10 bg-water-faint"
+                        className="px-4 py-3 text-left font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-ink/50 border-b border-ink/10 bg-water-faint whitespace-nowrap"
                       >
                         {h}
                       </th>
@@ -209,16 +213,16 @@ plt.show()`}
                 ].map((row, i) => (
                   <tr
                     key={i}
-                    className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors"
+                    className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors last:border-0"
                   >
                     <td className="px-4 py-3 font-mono text-xs text-water">
                       {row[0]}
                     </td>
-                    <td className="px-4 py-3 font-mono text-sm text-ink">
+                    <td className="px-4 py-3 font-mono text-xs sm:text-sm text-ink">
                       {row[1]}
                     </td>
                     <td
-                      className={`px-4 py-3 font-mono text-xs 
+                      className={`px-4 py-3 font-mono text-[10px] sm:text-xs 
                       ${
                         row[2].includes("Critical") ||
                         row[2].includes("Severe") ||
@@ -242,25 +246,26 @@ plt.show()`}
               </tbody>
             </table>
           </div>
-          <p className="font-sans text-xs text-ink/35 mt-2 italic">
+          <p className="font-sans text-[10px] sm:text-xs text-ink/35 mt-3 italic">
             Source: Combined CGWB WRIS records and IMD Historical Imputations
             (Mean: 1129mm).
           </p>
         </section>
 
         {/* Correlation analysis */}
-        <section className="mb-14">
-          <p className="section-label mb-4">Correlation Analysis</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="border border-ink/8 bg-white rounded-sm p-6">
-              <p className="font-serif text-lg font-semibold text-ink mb-3">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Correlation Analysis</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="border border-ink/8 bg-white rounded-sm p-5 sm:p-6">
+              <p className="font-serif text-base sm:text-lg font-semibold text-ink mb-2 sm:mb-3">
                 Phase 1: Natural Response (1994–2021)
               </p>
-              <div className="flex items-end gap-3 mb-4">
-                <span className="font-mono text-4xl font-medium text-water">
+              <div className="flex items-end gap-2 sm:gap-3 mb-3 sm:mb-4">
+                {/* Scaled down text-4xl to text-3xl on mobile to prevent wrapping */}
+                <span className="font-mono text-3xl sm:text-4xl font-medium text-water">
                   Direct
                 </span>
-                <span className="font-sans text-sm text-ink/40 mb-1">
+                <span className="font-sans text-xs sm:text-sm text-ink/40 mb-1">
                   correlation
                 </span>
               </div>
@@ -273,15 +278,15 @@ plt.show()`}
                 (870 mm) triggered immediate natural drops.
               </p>
             </div>
-            <div className="border border-ink/8 bg-white rounded-sm p-6">
-              <p className="font-serif text-lg font-semibold text-ink mb-3">
+            <div className="border border-ink/8 bg-white rounded-sm p-5 sm:p-6">
+              <p className="font-serif text-base sm:text-lg font-semibold text-ink mb-2 sm:mb-3">
                 Phase 2: The Disconnect (2022–2024)
               </p>
-              <div className="flex items-end gap-3 mb-4">
-                <span className="font-mono text-4xl font-medium text-red-500">
+              <div className="flex items-end gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <span className="font-mono text-3xl sm:text-4xl font-medium text-red-500">
                   Broken
                 </span>
-                <span className="font-sans text-sm text-ink/40 mb-1">
+                <span className="font-sans text-xs sm:text-sm text-ink/40 mb-1">
                   correlation
                 </span>
               </div>
@@ -298,7 +303,7 @@ plt.show()`}
 
         {/* Interpretation */}
         <section>
-          <p className="section-label mb-4">Key Findings</p>
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Key Findings</p>
           <div className="space-y-3">
             {[
               {
@@ -319,16 +324,16 @@ plt.show()`}
             ].map((f) => (
               <div
                 key={f.n}
-                className="flex gap-5 border border-ink/8 bg-white rounded-sm p-5"
+                className="flex flex-col sm:flex-row gap-2 sm:gap-5 border border-ink/8 bg-white rounded-sm p-4 sm:p-5"
               >
-                <span className="font-mono text-xs text-water/50 shrink-0 pt-0.5">
+                <span className="font-mono text-xs text-water/50 shrink-0 sm:pt-0.5">
                   {f.n}
                 </span>
                 <div>
-                  <p className="font-sans text-sm font-semibold text-ink mb-1">
+                  <p className="font-sans text-sm sm:text-base font-semibold text-ink mb-1">
                     {f.t}
                   </p>
-                  <p className="font-sans text-sm text-ink/55 leading-relaxed">
+                  <p className="font-sans text-xs sm:text-sm text-ink/55 leading-relaxed">
                     {f.d}
                   </p>
                 </div>

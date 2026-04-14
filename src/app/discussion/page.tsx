@@ -8,7 +8,7 @@ const causes = [
     severity: 'Primary Driver',
     severityColor: 'text-red-700 bg-red-50 border-red-200',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
       </svg>
     ),
@@ -21,7 +21,7 @@ const causes = [
     severity: 'Primary Driver',
     severityColor: 'text-red-700 bg-red-50 border-red-200',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
@@ -34,7 +34,7 @@ const causes = [
     severity: 'Significant',
     severityColor: 'text-orange-700 bg-orange-50 border-orange-200',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
       </svg>
     ),
@@ -47,7 +47,7 @@ const causes = [
     severity: 'Contributing',
     severityColor: 'text-amber-700 bg-amber-50 border-amber-200',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
       </svg>
     ),
@@ -60,7 +60,7 @@ const causes = [
     severity: 'Contributing',
     severityColor: 'text-blue-700 bg-blue-50 border-blue-200',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
       </svg>
     ),
@@ -79,11 +79,12 @@ export default function DiscussionPage() {
         description="A structured examination of the anthropogenic and climatic drivers responsible for the severe post-2021 decline in groundwater levels across the Ranchi district."
       />
 
-      <div className="page-container">
+      {/* Standard responsive wrapper */}
+      <div className="page-container px-4 sm:px-6 mx-auto max-w-5xl py-8 sm:py-12">
 
         {/* Cause severity overview */}
-        <section className="mb-14">
-          <p className="section-label mb-6">Driver Severity Overview (Urban Context)</p>
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">Driver Severity Overview (Urban Context)</p>
           <div className="border border-ink/10 bg-white rounded-sm overflow-hidden">
             {[
               { label: 'Urbanisation (Concrete Mantle)', weight: 45, color: 'bg-red-500' },
@@ -92,38 +93,43 @@ export default function DiscussionPage() {
               { label: 'Hard-Rock Geology Limits', weight: 5, color: 'bg-amber-400' },
               { label: 'Climate Variability', weight: 3, color: 'bg-blue-300' },
             ].map((d) => (
-              <div key={d.label} className="flex items-center gap-4 px-5 py-3.5 border-b border-ink/6 last:border-0">
-                <span className="font-sans text-sm text-ink/60 w-56 shrink-0">{d.label}</span>
-                <div className="flex-1 h-3 bg-ink/5 rounded-full overflow-hidden">
-                  <div className={`h-full ${d.color} rounded-full`} style={{ width: `${d.weight}%` }} />
+              // Changed from a pure flex-row to a flex-col on mobile so labels have room to breathe
+              <div key={d.label} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 px-4 sm:px-5 py-3 sm:py-3.5 border-b border-ink/6 last:border-0">
+                <span className="font-sans text-xs sm:text-sm text-ink/70 sm:text-ink/60 w-full sm:w-56 shrink-0 leading-tight">{d.label}</span>
+                <div className="flex items-center gap-3 w-full sm:flex-1">
+                  <div className="flex-1 h-2 sm:h-3 bg-ink/5 rounded-full overflow-hidden">
+                    <div className={`h-full ${d.color} rounded-full`} style={{ width: `${d.weight}%` }} />
+                  </div>
+                  <span className="font-mono text-[10px] sm:text-xs text-ink/50 w-8 text-right">{d.weight}%</span>
                 </div>
-                <span className="font-mono text-xs text-ink/50 w-8 text-right">{d.weight}%</span>
               </div>
             ))}
           </div>
-          <p className="font-sans text-xs text-ink/35 mt-2 italic">Estimated relative contribution to the recent rapid groundwater depletion rate in urban Ranchi.</p>
+          <p className="font-sans text-[10px] sm:text-xs text-ink/40 mt-3 sm:mt-2 italic">Estimated relative contribution to the recent rapid groundwater depletion rate in urban Ranchi.</p>
         </section>
 
         {/* Detailed cause cards */}
-        <section className="mb-14">
-          <p className="section-label mb-6">Detailed Analysis</p>
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">Detailed Analysis</p>
           <div className="space-y-4">
             {causes.map((c) => (
               <div key={c.num} className="border border-ink/8 bg-white rounded-sm overflow-hidden">
-                <div className="flex items-start gap-5 p-6">
-                  <span className="font-mono text-xs text-water/50 shrink-0 mt-0.5">{c.num}</span>
+                <div className="flex items-start gap-3 sm:gap-5 p-4 sm:p-6">
+                  <span className="font-mono text-[10px] sm:text-xs text-water/50 shrink-0 mt-1 sm:mt-0.5">{c.num}</span>
                   <div className="text-water/60 shrink-0 mt-0.5">{c.icon}</div>
                   <div className="flex-1">
-                    <div className="flex flex-wrap items-center gap-3 mb-3">
-                      <h3 className="font-serif font-semibold text-ink text-lg">{c.title}</h3>
-                      <span className={`font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border ${c.severityColor}`}>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                      <h3 className="font-serif font-semibold text-ink text-base sm:text-lg">{c.title}</h3>
+                      <span className={`font-mono text-[9px] sm:text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border whitespace-nowrap ${c.severityColor}`}>
                         {c.severity}
                       </span>
                     </div>
-                    <p className="font-sans text-sm text-ink/60 leading-relaxed mb-4">{c.body}</p>
-                    <div className="inline-flex items-center gap-2 bg-ink/3 rounded-sm px-3 py-1.5">
-                      <span className="font-mono text-[10px] text-ink/40 uppercase tracking-wider">Evidence:</span>
-                      <span className="font-mono text-xs text-water">{c.evidence}</span>
+                    <p className="font-sans text-xs sm:text-sm text-ink/60 leading-relaxed mb-3 sm:mb-4">{c.body}</p>
+                    
+                    {/* Switched to flex-col on very narrow screens so evidence text doesn't bunch up */}
+                    <div className="inline-flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 bg-ink/3 rounded-sm px-3 py-2 sm:py-1.5 w-full sm:w-auto">
+                      <span className="font-mono text-[9px] sm:text-[10px] text-ink/40 uppercase tracking-wider shrink-0">Evidence:</span>
+                      <span className="font-mono text-xs text-water leading-snug">{c.evidence}</span>
                     </div>
                   </div>
                 </div>
@@ -135,18 +141,18 @@ export default function DiscussionPage() {
         <SectionDivider label="Systemic Assessment" />
 
         {/* Synthesis */}
-        <section className="mb-14">
-          <p className="section-label mb-4">Synthesis</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-6">
-              <p className="font-serif text-base font-semibold text-ink mb-3">The "Disconnect" Imbalance</p>
-              <p className="font-sans text-sm text-ink/60 leading-[28px]">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Synthesis</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-5 sm:p-6">
+              <p className="font-serif text-base sm:text-lg font-semibold text-ink mb-2 sm:mb-3">The "Disconnect" Imbalance</p>
+              <p className="font-sans text-sm text-ink/60 leading-relaxed sm:leading-[28px]">
                 The fundamental cause of recent depletion in Ranchi is a structural disconnect between rainfall and recharge. While historic data (1995-2021) proved rainfall dictated water levels, rapid urban concretization has severed this link. Rain falls heavily, but it cannot enter the aquifer, causing severe pre-monsoon crashes even in statistically normal or surplus years.
               </p>
             </div>
-            <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-6">
-              <p className="font-serif text-base font-semibold text-ink mb-3">Geology vs. Extraction</p>
-              <p className="font-sans text-sm text-ink/60 leading-[28px]">
+            <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-5 sm:p-6">
+              <p className="font-serif text-base sm:text-lg font-semibold text-ink mb-2 sm:mb-3">Geology vs. Extraction</p>
+              <p className="font-sans text-sm text-ink/60 leading-relaxed sm:leading-[28px]">
                 The hard-rock granite plateau provides very little natural water storage (low primary porosity). By combining this fragile storage system with industrial-scale submersible pumps in modern multi-story apartments (and heavy industrial drafts in localized blocks), the aquifer is being actively "mined" rather than sustainably tapped.
               </p>
             </div>
@@ -155,13 +161,14 @@ export default function DiscussionPage() {
 
         {/* Hotspot zones */}
         <section>
-          <p className="section-label mb-4">Critical Hotspot Areas</p>
-          <div className="overflow-x-auto">
-            <table className="w-full border border-ink/10 bg-white text-sm">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Critical Hotspot Areas</p>
+          {/* Maintained overflow-x-auto and added min-w for horizontal scrolling */}
+          <div className="overflow-x-auto border border-ink/10 rounded-sm shadow-sm">
+            <table className="w-full min-w-[650px] bg-white text-sm">
               <thead>
                 <tr className="border-b border-ink/10 bg-water-faint">
                   {['Sub-division / Block', 'Primary Stress Factor', 'GWL Trend', 'Priority Level'].map(h => (
-                    <th key={h} className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50">{h}</th>
+                    <th key={h} className="px-4 py-3 text-left font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-ink/50 whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -173,17 +180,17 @@ export default function DiscussionPage() {
                   ['Namkum / Kanke', 'Peri-urban expansion + Institutions', '↓ Moderate', 'High'],
                   ['Rural Blocks (Karra/Angara)', 'Traditional Rainfed Agri + Domestic', '→ Stable', 'Safe'],
                 ].map((row, i) => (
-                  <tr key={i} className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors">
-                    <td className="px-4 py-3 font-sans text-sm font-medium text-ink">{row[0]}</td>
-                    <td className="px-4 py-3 font-sans text-xs text-ink/60">{row[1]}</td>
-                    <td className={`px-4 py-3 font-mono text-xs ${row[2].includes('Severe') ? 'text-red-600' : row[2].includes('Moderate') ? 'text-orange-500' : row[2].includes('Stable') ? 'text-green-600' : 'text-amber-500'}`}>{row[2]}</td>
-                    <td className={`px-4 py-3 font-mono text-xs font-medium ${row[3] === 'Over-Exploited' || row[3] === 'Critical' ? 'text-red-600' : row[3] === 'High' ? 'text-orange-600' : row[3] === 'Moderate' ? 'text-amber-600' : 'text-green-600'}`}>{row[3]}</td>
+                  <tr key={i} className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors last:border-0">
+                    <td className="px-4 py-3 font-sans text-xs sm:text-sm font-medium text-ink whitespace-nowrap">{row[0]}</td>
+                    <td className="px-4 py-3 font-sans text-[11px] sm:text-xs text-ink/60">{row[1]}</td>
+                    <td className={`px-4 py-3 font-mono text-[10px] sm:text-xs whitespace-nowrap ${row[2].includes('Severe') ? 'text-red-600' : row[2].includes('Moderate') ? 'text-orange-500' : row[2].includes('Stable') ? 'text-green-600' : 'text-amber-500'}`}>{row[2]}</td>
+                    <td className={`px-4 py-3 font-mono text-[10px] sm:text-xs font-medium whitespace-nowrap ${row[3] === 'Over-Exploited' || row[3] === 'Critical' ? 'text-red-600' : row[3] === 'High' ? 'text-orange-600' : row[3] === 'Moderate' ? 'text-amber-600' : 'text-green-600'}`}>{row[3]}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="font-sans text-xs text-ink/35 mt-2 italic">Categorization aligned with CGWB Dynamic Assessment (March 2024).</p>
+          <p className="font-sans text-[10px] sm:text-xs text-ink/35 mt-3 sm:mt-2 italic">Categorization aligned with CGWB Dynamic Assessment (March 2024).</p>
         </section>
 
       </div>

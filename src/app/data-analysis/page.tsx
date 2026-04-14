@@ -13,12 +13,14 @@ export default function DataAnalysisPage() {
         description="Seasonal groundwater level observations from monitoring wells across Ranchi district, analyzed for pre-monsoon and post-monsoon fluctuations over a 30-year period to assess the impact of rapid urbanization."
       />
 
-      <div className="page-container">
+      {/* Standardized responsive wrapper */}
+      <div className="page-container px-4 sm:px-6 mx-auto max-w-5xl py-8 sm:py-12">
 
         {/* Summary stats */}
-        <section className="mb-14">
-          <p className="section-label mb-6">Statistical Summary (1995-2024)</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">Statistical Summary (1995-2024)</p>
+          {/* Maintained 2 columns on mobile, scaled gap slightly */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             <DataCard label="Mean Pre-Monsoon" value="6.91" unit="m bgl" note="Historical depth before monsoon onset" />
             <DataCard label="Mean Fluctuation" value="3.40" unit="m" note="Average seasonal rise due to recharge" accent="accent" />
             <DataCard label="Shallowest Peak (2021)" value="3.60" unit="m bgl" note="Unusually high water table anomaly" accent="green" />
@@ -27,24 +29,23 @@ export default function DataAnalysisPage() {
         </section>
 
         {/* Chart 1 */}
-        {/* Chart 1 */}
-<section className="mb-14">
-  <p className="section-label mb-2">Chart 01 — Average Groundwater Trend</p>
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-2 text-sm sm:text-base">Chart 01 — Average Groundwater Trend</p>
 
-  <ChartEmbed
-    title="Average Groundwater Level Trend (1995–2024)"
-    caption="Average groundwater depth calculated as the mean of pre-monsoon and post-monsoon levels. The trend line highlights the long-term behavior of the aquifer, smoothing seasonal variations and revealing overall depletion or recovery patterns."
-    height="h-105"
-    src="/charts/avg_groundwater_trend.png"
-  />
+          <ChartEmbed
+            title="Average Groundwater Level Trend (1995–2024)"
+            caption="Average groundwater depth calculated as the mean of pre-monsoon and post-monsoon levels. The trend line highlights the long-term behavior of the aquifer, smoothing seasonal variations and revealing overall depletion or recovery patterns."
+            height="h-105"
+            src="/charts/avg_groundwater_trend.png"
+          />
 
-  {/* Code Accordion */}
-  <details className="mt-4 border border-ink/10 rounded-sm p-4 bg-gray-50">
-    <summary className="cursor-pointer font-mono text-sm text-ink/60">
-      View Python Code
-    </summary>
+          {/* Code Accordion */}
+          <details className="mt-3 sm:mt-4 border border-ink/10 rounded-sm p-3 sm:p-4 bg-gray-50">
+            <summary className="cursor-pointer font-mono text-xs sm:text-sm text-ink/60">
+              View Python Code
+            </summary>
 
-    <pre className="mt-3 text-xs overflow-x-auto">
+            <pre className="mt-3 text-[10px] sm:text-xs overflow-x-auto">
 {`import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -73,28 +74,28 @@ plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.savefig("avg_groundwater_trend.png", dpi=300)
 plt.show()`}
-    </pre>
-  </details>
-</section>
+            </pre>
+          </details>
+        </section>
 
         {/* Chart 2 */}
-<section className="mb-14">
-  <p className="section-label mb-2">Chart 02 — Seasonal Trend Analysis</p>
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-2 text-sm sm:text-base">Chart 02 — Seasonal Trend Analysis</p>
 
-  <ChartEmbed
-    title="Pre-Monsoon vs Post-Monsoon Groundwater Levels with Trend"
-    caption="Comparison of pre-monsoon and post-monsoon groundwater depths along with their trend lines. This illustrates seasonal recharge behavior and highlights whether groundwater conditions are improving or deteriorating over time."
-    height="h-105"
-    src="/charts/pre_post_trend.png"
-  />
+          <ChartEmbed
+            title="Pre-Monsoon vs Post-Monsoon Groundwater Levels with Trend"
+            caption="Comparison of pre-monsoon and post-monsoon groundwater depths along with their trend lines. This illustrates seasonal recharge behavior and highlights whether groundwater conditions are improving or deteriorating over time."
+            height="h-105"
+            src="/charts/pre_post_trend.png"
+          />
 
-  {/* Code Accordion */}
-  <details className="mt-4 border border-ink/10 rounded-sm p-4 bg-gray-50">
-    <summary className="cursor-pointer font-mono text-sm text-ink/60">
-      View Python Code
-    </summary>
+          {/* Code Accordion */}
+          <details className="mt-3 sm:mt-4 border border-ink/10 rounded-sm p-3 sm:p-4 bg-gray-50">
+            <summary className="cursor-pointer font-mono text-xs sm:text-sm text-ink/60">
+              View Python Code
+            </summary>
 
-    <pre className="mt-3 text-xs overflow-x-auto">
+            <pre className="mt-3 text-[10px] sm:text-xs overflow-x-auto">
 {`import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -129,14 +130,15 @@ plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.savefig("pre_post_trend.png", dpi=300)
 plt.show()`}
-    </pre>
-  </details>
-</section>
+            </pre>
+          </details>
+        </section>
 
         <SectionDivider label="Trend Interpretation" />
 
         {/* Interpretation block */}
-        <section className="mb-14">
+        <section className="mb-10 sm:mb-14">
+          {/* Defaulting to 1 col on mobile, 3 on tablet/desktop to avoid squishing the text */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-ink/8 border border-ink/8">
             {[
               {
@@ -161,24 +163,25 @@ plt.show()`}
                 desc: 'A violent reversal. In just three years, pre-monsoon levels collapsed from 3.60m down to 8.27m. This rapid, continuous trajectory points to a systemic shock—where recent urban extraction has suddenly overwhelmed the aquifer\'s yield.',
               },
             ].map((p) => (
-              <div key={p.period} className={`${p.bg} p-6`}>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink/40 mb-1">{p.period}</p>
-                <p className={`font-serif font-semibold text-lg mb-3 ${p.color}`}>{p.label}</p>
-                <p className="font-sans text-sm text-ink/60 leading-relaxed">{p.desc}</p>
+              <div key={p.period} className={`${p.bg} p-4 sm:p-6`}>
+                <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-ink/40 mb-1">{p.period}</p>
+                <p className={`font-serif font-semibold text-base sm:text-lg mb-2 sm:mb-3 ${p.color}`}>{p.label}</p>
+                <p className="font-sans text-xs sm:text-sm text-ink/60 leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* Data table */}
-        <section className="mb-14">
-          <p className="section-label mb-4">Sample Data — Historical (1995–2024)</p>
-          <div className="overflow-x-auto h-96 border border-ink/10 rounded-sm">
-            <table className="w-full bg-white text-sm relative">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Sample Data — Historical (1995–2024)</p>
+          {/* Height adjusted for mobile, overflow-x-auto combined with min-w on table */}
+          <div className="overflow-x-auto h-80 sm:h-96 border border-ink/10 rounded-sm shadow-sm">
+            <table className="w-full min-w-[500px] bg-white text-sm relative">
               <thead className="sticky top-0 z-10 shadow-sm">
                 <tr className="bg-water-faint">
                   {['Year', 'Pre-Monsoon (m bgl)', 'Post-Monsoon (m bgl)', 'Fluctuation (m)', 'Trend (Pre)'].map((h) => (
-                    <th key={h} className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50 border-b border-ink/10 bg-water-faint">{h}</th>
+                    <th key={h} className="px-4 py-3 text-left font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-ink/50 border-b border-ink/10 bg-water-faint whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -215,27 +218,28 @@ plt.show()`}
                   ['2023', '7.59', '4.84', '2.75', '↓'],
                   ['2024', '8.27', 'N/A', 'N/A', '↓'],
                 ].map((row, i) => (
-                  <tr key={i} className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors">
-                    <td className="px-4 py-3 font-mono text-xs text-water">{row[0]}</td>
-                    <td className="px-4 py-3 font-mono text-sm text-ink">{row[1]}</td>
-                    <td className="px-4 py-3 font-mono text-sm text-ink">{row[2]}</td>
-                    <td className="px-4 py-3 font-mono text-sm text-ink/60">{row[3]}</td>
-                    <td className={`px-4 py-3 font-mono text-sm ${row[4] === '↓' ? 'text-red-500' : row[4] === '↑' ? 'text-green-500' : 'text-amber-500'}`}>{row[4]}</td>
+                  <tr key={i} className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors last:border-0">
+                    <td className="px-4 py-3 font-mono text-xs sm:text-sm text-water whitespace-nowrap">{row[0]}</td>
+                    <td className="px-4 py-3 font-mono text-xs sm:text-sm text-ink whitespace-nowrap">{row[1]}</td>
+                    <td className="px-4 py-3 font-mono text-xs sm:text-sm text-ink whitespace-nowrap">{row[2]}</td>
+                    <td className="px-4 py-3 font-mono text-xs sm:text-sm text-ink/60 whitespace-nowrap">{row[3]}</td>
+                    <td className={`px-4 py-3 font-mono text-sm sm:text-base whitespace-nowrap ${row[4] === '↓' ? 'text-red-500' : row[4] === '↑' ? 'text-green-500' : 'text-amber-500'}`}>{row[4]}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="font-sans text-xs text-ink/35 mt-2 italic">
+          <p className="font-sans text-[10px] sm:text-xs text-ink/35 mt-3 sm:mt-2 italic">
             Source: Combined CGWB WRIS records. Post-monsoon data for 2024 was incomplete at the time of compilation.
           </p>
         </section>
 
         {/* Interpretation text */}
         <section>
-          <p className="section-label mb-4">Conclusion</p>
-          <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-6">
-            <p className="font-sans text-sm text-ink/70 leading-[28px]">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Conclusion</p>
+          {/* Shrunk padding and leading size for smaller devices */}
+          <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-4 sm:p-6">
+            <p className="font-sans text-sm sm:text-base text-ink/70 leading-relaxed sm:leading-[28px]">
               Analyzing the full 30-year spectrum of Ranchi's groundwater data reveals a stark transformation in aquifer dynamics. In the late 1990s and 2000s, the system exhibited classic hard-rock behavior: deep pre-monsoon levels but massive post-monsoon recoveries, proving the natural percolation cycle was healthy. The 2010s then brought an era of unusual stability, keeping water levels deceptively shallow. However, the data from 2022 to 2024 shatters this equilibrium. Following a peak in 2021, pre-monsoon levels have plummeted continuously, returning to depths not seen since 2005. Unlike the historical variations, this modern crash is extremely steep and lacks the corresponding massive recharge fluctuations of the past. This divergence strongly indicates that rapid, recent expansions of the urban "concrete mantle" are choking off surface recharge, while unregulated deep-bore submersible pumps are stripping the localized aquifers faster than they can refill.
             </p>
           </div>

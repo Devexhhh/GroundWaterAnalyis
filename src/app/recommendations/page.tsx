@@ -103,49 +103,55 @@ export default function RecommendationsPage() {
         description="Evidence-based recommendations for reversing the severe urban groundwater depletion trends in Ranchi district, organized by intervention category and implementation priority."
       />
 
-      <div className="page-container">
+      {/* Standardized responsive wrapper */}
+      <div className="page-container px-4 sm:px-6 mx-auto max-w-5xl py-8 sm:py-12">
 
         {/* Priority matrix */}
-        <section className="mb-14">
-          <p className="section-label mb-6">Implementation Priority Matrix</p>
-          <div className="grid grid-cols-3 gap-px bg-ink/8 border border-ink/8">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">Implementation Priority Matrix</p>
+          {/* Changed to a 1-column stack on mobile, 3-column row on sm/desktop */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-ink/8 border border-ink/8">
             {[
               { label: 'Immediate', sub: '0–2 years', color: 'bg-red-50', count: '3 measures' },
               { label: 'Short-term', sub: '2–5 years', color: 'bg-amber-50', count: '2 measures' },
               { label: 'Medium-term', sub: '5–10 years', color: 'bg-blue-50', count: '3 measures' },
             ].map(p => (
-              <div key={p.label} className={`${p.color} p-5`}>
-                <p className="font-serif font-semibold text-ink text-base mb-1">{p.label}</p>
-                <p className="font-mono text-xs text-ink/40 mb-3">{p.sub}</p>
-                <p className="font-sans text-sm text-ink/60">{p.count} recommended</p>
+              <div key={p.label} className={`${p.color} p-4 sm:p-5`}>
+                <p className="font-serif font-semibold text-ink text-base sm:text-lg mb-1">{p.label}</p>
+                <p className="font-mono text-[10px] sm:text-xs text-ink/40 mb-2 sm:mb-3">{p.sub}</p>
+                <p className="font-sans text-xs sm:text-sm text-ink/60">{p.count} recommended</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* Recommendations */}
-        <section className="mb-14 space-y-8">
+        <section className="mb-10 sm:mb-14 space-y-6 sm:space-y-8">
           {recommendations.map((group) => (
             <div key={group.num} className={`border-2 rounded-sm overflow-hidden ${group.color}`}>
-              <div className="px-6 py-4 border-b border-ink/8">
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs text-ink/30">{group.num}</span>
-                  <h2 className={`font-serif font-semibold text-lg ${group.labelColor}`}>{group.category}</h2>
+              {/* Responsive padding inside headers */}
+              <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-ink/8">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="font-mono text-xs sm:text-sm text-ink/30">{group.num}</span>
+                  <h2 className={`font-serif font-semibold text-base sm:text-lg ${group.labelColor}`}>{group.category}</h2>
                 </div>
               </div>
               <div className="divide-y divide-ink/6">
                 {group.items.map((item, i) => (
-                  <div key={i} className="bg-white px-6 py-5">
-                    <div className="flex flex-wrap items-start gap-3 mb-3">
-                      <h3 className="font-sans font-semibold text-ink text-sm flex-1">{item.title}</h3>
-                      <span className={`font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full ${item.priorityColor}`}>
+                  <div key={i} className="bg-white px-4 sm:px-6 py-4 sm:py-5">
+                    {/* Keeps items-start but adds slightly more gap consistency */}
+                    <div className="flex flex-wrap items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+                      <h3 className="font-sans font-semibold text-ink text-sm sm:text-base flex-1 min-w-[200px]">{item.title}</h3>
+                      <span className={`font-mono text-[9px] sm:text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full whitespace-nowrap mt-0.5 sm:mt-0 ${item.priorityColor}`}>
                         {item.priority}
                       </span>
                     </div>
-                    <p className="font-sans text-sm text-ink/60 leading-relaxed mb-3">{item.desc}</p>
-                    <div className="inline-flex items-center gap-2 bg-ink/3 rounded-sm px-3 py-1.5">
-                      <span className="font-mono text-[10px] text-ink/40 uppercase tracking-wider">Expected Impact:</span>
-                      <span className="font-mono text-xs text-water">{item.impact}</span>
+                    <p className="font-sans text-xs sm:text-sm text-ink/60 leading-relaxed mb-3 sm:mb-4">{item.desc}</p>
+                    
+                    {/* Impact box changes to flex-col on very small screens to avoid text bunching */}
+                    <div className="inline-flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 bg-ink/3 rounded-sm px-3 py-2 sm:py-1.5 w-full sm:w-auto">
+                      <span className="font-mono text-[9px] sm:text-[10px] text-ink/40 uppercase tracking-wider">Expected Impact:</span>
+                      <span className="font-mono text-xs text-water leading-snug">{item.impact}</span>
                     </div>
                   </div>
                 ))}
@@ -157,24 +163,25 @@ export default function RecommendationsPage() {
         <SectionDivider label="Conclusion" />
 
         {/* Conclusion */}
-        <section className="mb-14">
-          <p className="section-label mb-4">Conclusion</p>
-          <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-6 mb-6">
-            <p className="font-sans text-sm text-ink/70 leading-[28px]">
+        <section className="mb-10 sm:mb-14">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Conclusion</p>
+          {/* Shrunk padding slightly for mobile viewing */}
+          <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-4 sm:p-6 mb-4 sm:mb-6">
+            <p className="font-sans text-sm sm:text-base text-ink/70 leading-relaxed sm:leading-[28px]">
               The groundwater situation in Jharkhand presents a stark urban-rural divide. While the state overall is statistically classified as "Safe" (31.42% extraction stage) due to its vast rural and hilly areas, our 30-year analysis (1995–2024) of CGWB monitoring data reveals a catastrophic, localized crash in urban and industrial centers like Ranchi. Pre-monsoon water tables have plunged from a record shallow 3.60 m bgl in 2021 to a district average of 8.27 m bgl by 2024, with high-density urban hotspots plunging well beyond 30 m bgl.
             </p>
-            <p className="font-sans text-sm text-ink/70 leading-[28px] mt-4">
+            <p className="font-sans text-sm sm:text-base text-ink/70 leading-relaxed sm:leading-[28px] mt-4">
               Crucially, our correlation analysis proves that this severe recent depletion is no longer climate-driven. Post-2021 data shows an alarming disconnect: despite statistically steady rainfall (~1,180 mm annually), groundwater levels continue to crash. This confirms that rapid urbanization has created an impermeable "concrete mantle," preventing monsoon rains from percolating into the hard-rock aquifers, while unregulated deep borewells simultaneously drain the remaining storage.
             </p>
-            <p className="font-sans text-sm text-ink/70 leading-[28px] mt-4">
+            <p className="font-sans text-sm sm:text-base text-ink/70 leading-relaxed sm:leading-[28px] mt-4">
               Without urgent, structured intervention, Ranchi’s urban core faces an imminent water crisis. The recommended framework — centered on mandatory rooftop rainwater harvesting, strict borewell regulation, urban lake rejuvenation, and rural micro-irrigation — offers an evidence-based pathway to restore the fractured recharge cycle. Implementation must be aggressively coordinated between the Ranchi Municipal Corporation, the CGWB, and the Jharkhand State Groundwater Directorate.
             </p>
           </div>
 
           {/* Data sources cited */}
-          <div className="border border-ink/8 bg-white rounded-sm p-5">
-            <p className="section-label mb-3">Data Sources & References</p>
-            <div className="space-y-1.5">
+          <div className="border border-ink/8 bg-white rounded-sm p-4 sm:p-5">
+            <p className="section-label mb-3 text-sm sm:text-base">Data Sources & References</p>
+            <div className="space-y-2 sm:space-y-1.5">
               {[
                 'Central Ground Water Board. Dynamic Ground Water Resources of Jharkhand (March 2024). Ministry of Jal Shakti, GoI.',
                 'Central Ground Water Board. Ground Water Yearbook Jharkhand (2024-2025). SUO Ranchi.',
@@ -183,9 +190,10 @@ export default function RecommendationsPage() {
                 'District Agriculture Estimates, Ranchi. (Step 7 Data Analysis).',
                 'Python Data Analysis (Pandas/Matplotlib) utilizing Mean Imputation for historical sensor failure correction.',
               ].map((ref, i) => (
-                <div key={i} className="flex gap-3 py-1.5 border-b border-ink/5 last:border-0">
-                  <span className="font-mono text-[10px] text-water/50 shrink-0 mt-0.5">[{i + 1}]</span>
-                  <p className="font-sans text-xs text-ink/50 leading-relaxed">{ref}</p>
+                <div key={i} className="flex gap-2 sm:gap-3 py-1.5 border-b border-ink/5 last:border-0">
+                  <span className="font-mono text-[9px] sm:text-[10px] text-water/50 shrink-0 mt-0.5">[{i + 1}]</span>
+                  {/* Added break-words to ensure long URLs don't break the layout on mobile */}
+                  <p className="font-sans text-[11px] sm:text-xs text-ink/50 leading-relaxed break-words">{ref}</p>
                 </div>
               ))}
             </div>
@@ -193,14 +201,15 @@ export default function RecommendationsPage() {
         </section>
 
         {/* Navigation back */}
-        <div className="flex justify-between items-center pt-6 border-t border-ink/8">
-          <Link href="/discussion" className="flex items-center gap-2 text-sm font-sans text-ink/50 hover:text-water transition-colors">
+        {/* Switched to flex-col-reverse on small screens so the main "Back to Overview" is easier to tap */}
+        <div className="flex flex-col-reverse sm:flex-row justify-between items-center pt-6 border-t border-ink/8 gap-4 sm:gap-0">
+          <Link href="/discussion" className="flex items-center gap-2 text-sm font-sans text-ink/50 hover:text-water transition-colors w-full sm:w-auto justify-center sm:justify-start py-2 sm:py-0">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
             </svg>
             Discussion
           </Link>
-          <Link href="/" className="flex items-center gap-2 text-sm font-sans text-ink/50 hover:text-water transition-colors">
+          <Link href="/" className="flex items-center gap-2 text-sm font-sans font-medium text-ink/70 hover:text-water transition-colors w-full sm:w-auto justify-center sm:justify-end bg-water-faint sm:bg-transparent rounded-sm py-3 sm:py-0">
             Back to Overview
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

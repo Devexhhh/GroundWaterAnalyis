@@ -42,11 +42,15 @@ export default function StudyAreaPage() {
         description="Located on the Chota Nagpur Plateau, Ranchi is the capital of Jharkhand. The district is experiencing rapid urbanization, which, combined with its inherently fragile hard-rock geology, places severe stress on local groundwater resources and natural recharge rates."
       />
 
-      <div className="page-container">
+      {/* Added responsive padding to the main container */}
+      <div className="page-container px-4 sm:px-6 mx-auto max-w-5xl py-8 sm:py-12">
+        
         {/* Geographic Overview */}
-        <section className="mb-14 selection:bg-blue-100 selection:text-blue-900">
-          <p className="section-label mb-6">Geographic Overview</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {/* Adjusted bottom margin for mobile (mb-10) vs desktop (sm:mb-14) */}
+        <section className="mb-10 sm:mb-14 selection:bg-blue-100 selection:text-blue-900">
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">Geographic Overview</p>
+          {/* Changed to 1 column on smallest screens to prevent text overflow, 2 on small, 4 on large */}
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {facts.map((f) => (
               <DataCard
                 key={f.label}
@@ -59,18 +63,18 @@ export default function StudyAreaPage() {
         </section>
 
         {/* Coordinates */}
-        <section className="mb-14 selection:bg-blue-100 selection:text-blue-900">
-          <p className="section-label mb-6">Coordinates & Elevation</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <section className="mb-10 sm:mb-14 selection:bg-blue-100 selection:text-blue-900">
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">Coordinates & Elevation</p>
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {coordData.map((c) => (
               <div
                 key={c.label}
-                className="border border-ink/8 bg-white p-4 rounded-sm"
+                className="border border-ink/8 bg-white p-4 sm:p-5 rounded-sm"
               >
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink/40 mb-2">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-ink/40 mb-1.5 sm:mb-2">
                   {c.label}
                 </p>
-                <p className="font-mono text-sm text-ink font-medium">
+                <p className="font-mono text-sm sm:text-base text-ink font-medium">
                   {c.value}
                 </p>
               </div>
@@ -79,11 +83,11 @@ export default function StudyAreaPage() {
         </section>
 
         {/* Map placeholder */}
-        <section className="mb-14 selection:bg-blue-100 selection:text-blue-900">
-          <p className="section-label mb-4">Location Map</p>
+        <section className="mb-10 sm:mb-14 selection:bg-blue-100 selection:text-blue-900">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Location Map</p>
 
-          {/* Image Container */}
-          <div className="border border-blue-400 bg-white rounded-xl h-105 overflow-hidden bg-gray-50 flex items-center justify-center">
+          {/* Replaced fixed h-105 with responsive heights (h-64 -> sm:h-80 -> md:h-96) */}
+          <div className="border border-blue-400 bg-white rounded-xl h-64 sm:h-80 md:h-96 overflow-hidden bg-gray-50 flex items-center justify-center">
             <img
               src="/maps/ranchi_location.png"
               alt="Groundwater Location Map of Ranchi District"
@@ -95,14 +99,14 @@ export default function StudyAreaPage() {
         <SectionDivider label="Agro-Climatic Profile" />
 
         {/* Agro-climatic zone */}
-        <section className="mb-14 selection:bg-blue-100 selection:text-blue-900">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="border border-ink/8 bg-white rounded-sm p-6">
-              <p className="section-label mb-4">Agro-Climatic Zone</p>
-              <p className="font-serif text-2xl font-semibold text-ink mb-2">
+        <section className="my-10 sm:my-14 selection:bg-blue-100 selection:text-blue-900">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="border border-ink/8 bg-white rounded-sm p-5 sm:p-6">
+              <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Agro-Climatic Zone</p>
+              <p className="font-serif text-xl sm:text-2xl font-semibold text-ink mb-1 sm:mb-2">
                 Zone VII
               </p>
-              <p className="font-sans text-sm text-ink/60">
+              <p className="font-sans text-xs sm:text-sm text-ink/60">
                 Eastern Plateau & Hills Region
               </p>
               <p className="font-sans text-sm text-ink/50 mt-3 leading-relaxed">
@@ -113,25 +117,25 @@ export default function StudyAreaPage() {
                 Silli.
               </p>
             </div>
-            <div className="border border-ink/8 bg-white rounded-sm p-6">
-              <p className="section-label mb-4">Climate Summary</p>
+            <div className="border border-ink/8 bg-white rounded-sm p-5 sm:p-6">
+              <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Climate Summary</p>
               <div className="space-y-2">
                 {[
                   {
                     k: "Normal Annual Rainfall",
-                    v: "1,129 mm (1994–2024 avg)",
+                    v: "1,129 mm",
                   },
-                  { k: "Monsoon Season", v: "June – September" },
+                  { k: "Monsoon Season", v: "June – Sept" },
                   { k: "Max Temperature", v: "40–42 °C (May)" },
-                  { k: "Min Temperature", v: "5–8 °C (January)" },
+                  { k: "Min Temperature", v: "5–8 °C (Jan)" },
                   { k: "Humidity (Monsoon)", v: "80–90%" },
                 ].map((r) => (
                   <div
                     key={r.k}
-                    className="flex justify-between items-center py-1.5 border-b border-ink/6 last:border-0"
+                    className="flex justify-between items-center py-2 border-b border-ink/6 last:border-0"
                   >
-                    <span className="font-sans text-xs text-ink/50">{r.k}</span>
-                    <span className="font-mono text-xs text-ink font-medium">
+                    <span className="font-sans text-xs sm:text-sm text-ink/50">{r.k}</span>
+                    <span className="font-mono text-xs sm:text-sm text-ink font-medium text-right ml-4">
                       {r.v}
                     </span>
                   </div>
@@ -142,10 +146,10 @@ export default function StudyAreaPage() {
         </section>
 
         {/* Geology */}
-        <section className="mb-14 selection:bg-blue-100 selection:text-blue-900">
-          <p className="section-label mb-4">Geology & Hydrogeology</p>
-          <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-6">
-            <p className="font-sans text-sm text-ink/70 leading-[28px]">
+        <section className="mb-10 sm:mb-14 selection:bg-blue-100 selection:text-blue-900">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Geology & Hydrogeology</p>
+          <div className="ruled-lines bg-white border border-ink/8 rounded-sm p-5 sm:p-6">
+            <p className="font-sans text-sm sm:text-base text-ink/70 leading-relaxed sm:leading-[28px]">
               As per the CGWB assessments, over 78% of the region is underlain
               by Archean era crystalline rocks belonging to the{" "}
               <strong>Chotanagpur Granitic Gneissic Complex (CGGC)</strong>. Due
@@ -165,23 +169,24 @@ export default function StudyAreaPage() {
 
         {/* Monitoring Wells */}
         <section>
-          <p className="section-label mb-4 selection:bg-blue-100 selection:text-blue-900">
+          <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base selection:bg-blue-100 selection:text-blue-900">
             Sample CGWB Monitoring Well Network
           </p>
-          <div className="overflow-x-auto">
-            <table className="w-full border border-ink/10 bg-white text-sm">
+          {/* Maintained overflow-x-auto for horizontal scrolling on small screens */}
+          <div className="overflow-x-auto border border-ink/10 rounded-sm shadow-sm">
+            <table className="w-full min-w-[600px] bg-white text-sm">
               <thead>
                 <tr className="border-b border-ink/10 bg-water-faint">
-                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50">
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50 whitespace-nowrap">
                     Well ID
                   </th>
-                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50">
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50 whitespace-nowrap">
                     Location
                   </th>
-                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50">
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50 whitespace-nowrap">
                     Type
                   </th>
-                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50">
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50 whitespace-nowrap">
                     Depth (m)
                   </th>
                 </tr>
@@ -191,22 +196,26 @@ export default function StudyAreaPage() {
                   [
                     "CGWB1JHRRAN005",
                     "Lalpur (BIT Ext)",
-                    "Bore Well (Telemetric)",
+                    "Bore Well",
                     "160.5",
                   ],
-                  ["230930085352001", "Bundu", "Dug Well (Manual)", "10.0"],
-                  ["230332085114701", "Amjora", "Dug Well (Manual)", "9.25"],
-                  ["231355085115001", "Lodma", "Dug Well (Manual)", "8.1"],
-                  ["232210085371801", "Jonha", "Dug Well (Manual)", "6.7"],
+                  ["230930085352001", "Bundu", "Dug Well", "10.0"],
+                  ["230332085114701", "Amjora", "Dug Well", "9.25"],
+                  ["231355085115001", "Lodma", "Dug Well", "8.1"],
+                  ["232210085371801", "Jonha", "Dug Well", "6.7"],
                 ].map((row, i) => (
                   <tr
                     key={i}
-                    className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors"
+                    className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors last:border-0"
                   >
                     {row.map((cell, j) => (
                       <td
                         key={j}
-                        className={`px-4 py-3 ${j === 0 ? "font-mono text-water text-xs" : "font-sans text-ink/70 text-sm"}`}
+                        className={`px-4 py-3.5 ${
+                          j === 0
+                            ? "font-mono text-water text-xs whitespace-nowrap"
+                            : "font-sans text-ink/70 text-sm whitespace-nowrap sm:whitespace-normal"
+                        }`}
                       >
                         {cell}
                       </td>
@@ -216,7 +225,7 @@ export default function StudyAreaPage() {
               </tbody>
             </table>
           </div>
-          <p className="font-sans text-xs text-ink/35 mt-2 italic">
+          <p className="font-sans text-[10px] sm:text-xs text-ink/35 mt-3 italic">
             Source: India WRIS / CGWB Groundwater Level Observations (Ranchi).
           </p>
         </section>
