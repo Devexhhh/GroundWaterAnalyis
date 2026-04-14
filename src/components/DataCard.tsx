@@ -15,7 +15,7 @@ const accentColors = {
 
 export default function DataCard({ label, value, unit, note, accent = 'water' }: DataCardProps) {
   return (
-    <div className={`border rounded-sm p-5 ${accentColors[accent]}`}>
+    <div className={`border rounded-sm p-5 selection:bg-blue-100 selection:text-blue-900 ${accentColors[accent]}`}>
       <p className="section-label mb-3">{label}</p>
       <p className="data-value">
         {value}
