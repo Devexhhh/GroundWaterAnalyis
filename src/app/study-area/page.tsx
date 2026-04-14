@@ -87,7 +87,7 @@ export default function StudyAreaPage() {
           <p className="section-label mb-3 sm:mb-4 text-sm sm:text-base">Location Map</p>
 
           {/* Replaced fixed h-105 with responsive heights (h-64 -> sm:h-80 -> md:h-96) */}
-          <div className="border border-blue-400 bg-white rounded-xl h-64 sm:h-80 md:h-96 overflow-hidden bg-gray-50 flex items-center justify-center">
+          <div className="border border-blue-400 bg-white rounded-xl h-105 overflow-hidden bg-gray-50 flex items-center justify-center">
             <img
               src="/maps/ranchi_location.png"
               alt="Groundwater Location Map of Ranchi District"
