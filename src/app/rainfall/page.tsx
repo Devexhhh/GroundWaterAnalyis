@@ -1,6 +1,6 @@
-import PageHeader from '@/components/PageHeader'
-import ChartEmbed from '@/components/ChartEmbed'
-import DataCard from '@/components/DataCard'
+import PageHeader from "@/components/PageHeader";
+import ChartEmbed from "@/components/ChartEmbed";
+import DataCard from "@/components/DataCard";
 
 export default function RainfallPage() {
   return (
@@ -13,28 +13,145 @@ export default function RainfallPage() {
       />
 
       <div className="page-container">
-
         {/* Stats */}
         <section className="mb-14">
-          <p className="section-label mb-6">Rainfall Statistics (Ranchi District)</p>
+          <p className="section-label mb-6">
+            Rainfall Statistics (Ranchi District)
+          </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <DataCard label="Normal Annual Rainfall" value="1,129" unit="mm" note="Calculated mean (1994-2024)" />
-            <DataCard label="Max Year (2006)" value="1,550" unit="mm" accent="green" note="Highest recorded in dataset" />
-            <DataCard label="Min Year (2009)" value="820" unit="mm" accent="red" note="Severe deficit year" />
-            <DataCard label="Correlation Shift" value="Divergent" unit="" note="Natural correlation broken post-2021 by urbanization" accent="accent" />
+            <DataCard
+              label="Normal Annual Rainfall"
+              value="1,129"
+              unit="mm"
+              note="Calculated mean (1994-2024)"
+            />
+            <DataCard
+              label="Max Year (2006)"
+              value="1,550"
+              unit="mm"
+              accent="green"
+              note="Highest recorded in dataset"
+            />
+            <DataCard
+              label="Min Year (2009)"
+              value="820"
+              unit="mm"
+              accent="red"
+              note="Severe deficit year"
+            />
+            <DataCard
+              label="Correlation Shift"
+              value="Divergent"
+              unit=""
+              note="Natural correlation broken post-2021 by urbanization"
+              accent="accent"
+            />
           </div>
         </section>
 
-        {/* Chart 3: Rainfall vs GWL */}
+        {/* Chart 3 */}
         <section className="mb-14">
-          <p className="section-label mb-2">Chart 03 — Correlation Plot</p>
+          <p className="section-label mb-2">
+            Chart 03 — Rainfall vs Groundwater (Dual Axis)
+          </p>
+
           <ChartEmbed
-            title="Annual Rainfall vs Pre-Monsoon Groundwater Level (1994–2024)"
-            caption="Dual-axis chart showing annual rainfall (mm) alongside pre-monsoon groundwater depth (m bgl). Highlights the alarming post-2021 disconnect."
-            height="h-80"
-            placeholder="Replace: export your 'Rainfall_vs_Groundwater.png' from Jupyter and place in /public/charts/"
-            src="/charts/Rainfall_vs_Groundwater.png"
+            title="Annual Rainfall and Groundwater Depth (1994–2024)"
+            caption="Dual-axis visualization comparing annual rainfall (mm) and average groundwater depth (m bgl). While rainfall remains relatively stable, groundwater levels show a sharp decline in recent years, indicating a breakdown of natural recharge mechanisms."
+            height="h-105"
+            src="/charts/final_dual_axis_plot.png"
           />
+
+          {/* Code Accordion */}
+          <details className="mt-4 border border-ink/10 rounded-sm p-4 bg-gray-50">
+            <summary className="cursor-pointer font-mono text-sm text-ink/60">
+              View Python Code
+            </summary>
+
+            <pre className="mt-3 text-xs overflow-x-auto">
+              {`import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_excel("final_dataset.xlsx")
+
+fig, ax1 = plt.subplots(figsize=(12,6))
+
+# Rainfall
+ax1.bar(df["Year"], df["Annual Rainfall (mm)"], alpha=0.6, label="Rainfall")
+ax1.set_xlabel("Year")
+ax1.set_ylabel("Rainfall (mm)")
+
+# Groundwater
+ax2 = ax1.twinx()
+ax2.plot(df["Year"], df["Average Groundwater Level (m)"],
+         marker='o', linewidth=2, label="Groundwater Depth")
+ax2.set_ylabel("Groundwater Depth (m bgl)")
+
+# Legend
+lines1, labels1 = ax1.get_legend_handles_labels()
+lines2, labels2 = ax2.get_legend_handles_labels()
+ax1.legend(lines1 + lines2, labels1 + labels2)
+
+plt.title("Rainfall vs Groundwater (Dual Axis)")
+plt.grid(True, linestyle='--', alpha=0.5)
+
+plt.tight_layout()
+plt.savefig("final_dual_axis_plot.png", dpi=300)
+plt.show()`}
+            </pre>
+          </details>
+        </section>
+
+        {/* Chart 4 */}
+        <section className="mb-14">
+          <p className="section-label mb-2">Chart 04 — Correlation Analysis</p>
+
+          <ChartEmbed
+            title="Rainfall vs Groundwater Correlation"
+            caption="Scatter plot showing the relationship between annual rainfall and groundwater depth. The weak correlation suggests that rainfall alone is no longer sufficient to sustain groundwater levels, indicating strong anthropogenic influence."
+            height="h-105"
+            src="/charts/final_scatter_plot.png"
+          />
+
+          {/* Code Accordion */}
+          <details className="mt-4 border border-ink/10 rounded-sm p-4 bg-gray-50">
+            <summary className="cursor-pointer font-mono text-sm text-ink/60">
+              View Python Code
+            </summary>
+
+            <pre className="mt-3 text-xs overflow-x-auto">
+              {`import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+df = pd.read_excel("final_dataset.xlsx")
+
+rain = df["Annual Rainfall (mm)"]
+gw = df["Average Groundwater Level (m)"]
+
+corr = np.corrcoef(rain, gw)[0,1]
+
+coef = np.polyfit(rain, gw, 1)
+trend = np.poly1d(coef)
+
+plt.figure(figsize=(10,6))
+plt.scatter(rain, gw, alpha=0.8, label="Data")
+
+x_vals = np.linspace(rain.min(), rain.max(), 100)
+plt.plot(x_vals, trend(x_vals), linewidth=2, label="Trend")
+
+plt.xlabel("Rainfall (mm)")
+plt.ylabel("Groundwater Depth (m bgl)")
+plt.title(f"Correlation: {corr:.2f}")
+
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.5)
+
+plt.tight_layout()
+plt.savefig("final_scatter_plot.png", dpi=300)
+plt.show()`}
+            </pre>
+          </details>
         </section>
 
         {/* Rainfall data table */}
@@ -44,54 +161,79 @@ export default function RainfallPage() {
             <table className="w-full bg-white text-sm relative">
               <thead className="sticky top-0 z-10 shadow-sm">
                 <tr className="bg-water-faint">
-                  {['Year', 'Annual Rainfall (mm)', 'Status / Observation'].map(h => (
-                    <th key={h} className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50 border-b border-ink/10 bg-water-faint">{h}</th>
-                  ))}
+                  {["Year", "Annual Rainfall (mm)", "Status / Observation"].map(
+                    (h) => (
+                      <th
+                        key={h}
+                        className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-ink/50 border-b border-ink/10 bg-water-faint"
+                      >
+                        {h}
+                      </th>
+                    ),
+                  )}
                 </tr>
               </thead>
               <tbody>
                 {[
-                  ['1994', '1,100', 'Normal / Slight Deficit'],
-                  ['1995', '1,200', 'Surplus'],
-                  ['1996', '1,150', 'Surplus'],
-                  ['1997', '990', 'Deficit'],
-                  ['1998', '1,050', 'Deficit'],
-                  ['1999', '1,020', 'Deficit'],
-                  ['2000', '1,100', 'Normal / Slight Deficit'],
-                  ['2001', '950', 'Deficit'],
-                  ['2002', '1,050', 'Deficit'],
-                  ['2003', '1,130', 'Normal'],
-                  ['2004', '1,080', 'Deficit'],
-                  ['2005', '1,400', 'High Surplus'],
-                  ['2006', '1,550', 'Peak Surplus'],
-                  ['2007', '1,300', 'Surplus'],
-                  ['2008', '1,200', 'Surplus'],
-                  ['2009', '820', 'Severe Drought'],
-                  ['2010', '1,540', 'High Surplus'],
-                  ['2011', '1,250', 'Surplus'],
-                  ['2012', '870', 'Severe Deficit'],
-                  ['2013', '1,000', 'Deficit'],
-                  ['2014', '960', 'Deficit'],
-                  ['2015', '930', 'Deficit'],
-                  ['2016', '1,020', 'Normal Recharge'],
-                  ['2017', '980', 'Good Recharge Despite Deficit'],
-                  ['2018', '1,212', 'Surplus / Good Recharge'],
-                  ['2019', '1,206', 'GWL Drop Despite Rain'],
-                  ['2020', '1,199', 'Recovery'],
-                  ['2021', '1,194', 'Peak Shallow Anomaly'],
-                  ['2022', '1,188', 'Sudden Disconnect / Drop'],
-                  ['2023', '1,182', 'Severe Stress'],
-                  ['2024', '1,176', 'Critical Urban Stress'],
+                  ["1994", "1,100", "Normal / Slight Deficit"],
+                  ["1995", "1,200", "Surplus"],
+                  ["1996", "1,150", "Surplus"],
+                  ["1997", "990", "Deficit"],
+                  ["1998", "1,050", "Deficit"],
+                  ["1999", "1,020", "Deficit"],
+                  ["2000", "1,100", "Normal / Slight Deficit"],
+                  ["2001", "950", "Deficit"],
+                  ["2002", "1,050", "Deficit"],
+                  ["2003", "1,130", "Normal"],
+                  ["2004", "1,080", "Deficit"],
+                  ["2005", "1,400", "High Surplus"],
+                  ["2006", "1,550", "Peak Surplus"],
+                  ["2007", "1,300", "Surplus"],
+                  ["2008", "1,200", "Surplus"],
+                  ["2009", "820", "Severe Drought"],
+                  ["2010", "1,540", "High Surplus"],
+                  ["2011", "1,250", "Surplus"],
+                  ["2012", "870", "Severe Deficit"],
+                  ["2013", "1,000", "Deficit"],
+                  ["2014", "960", "Deficit"],
+                  ["2015", "930", "Deficit"],
+                  ["2016", "1,020", "Normal Recharge"],
+                  ["2017", "980", "Good Recharge Despite Deficit"],
+                  ["2018", "1,212", "Surplus / Good Recharge"],
+                  ["2019", "1,206", "GWL Drop Despite Rain"],
+                  ["2020", "1,199", "Recovery"],
+                  ["2021", "1,194", "Peak Shallow Anomaly"],
+                  ["2022", "1,188", "Sudden Disconnect / Drop"],
+                  ["2023", "1,182", "Severe Stress"],
+                  ["2024", "1,176", "Critical Urban Stress"],
                 ].map((row, i) => (
-                  <tr key={i} className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors">
-                    <td className="px-4 py-3 font-mono text-xs text-water">{row[0]}</td>
-                    <td className="px-4 py-3 font-mono text-sm text-ink">{row[1]}</td>
-                    <td className={`px-4 py-3 font-mono text-xs 
-                      ${row[2].includes('Critical') || row[2].includes('Severe') || row[2].includes('Drought') || row[2].includes('Drop') || row[2].includes('Stress')
-                        ? 'text-red-500' 
-                        : row[2].includes('Normal') || row[2].includes('Good') || row[2].includes('Recovery') || row[2].includes('Surplus') || row[2].includes('Peak Shallow')
-                        ? 'text-green-600' 
-                        : 'text-amber-500'}`}
+                  <tr
+                    key={i}
+                    className="border-b border-ink/6 hover:bg-water-faint/40 transition-colors"
+                  >
+                    <td className="px-4 py-3 font-mono text-xs text-water">
+                      {row[0]}
+                    </td>
+                    <td className="px-4 py-3 font-mono text-sm text-ink">
+                      {row[1]}
+                    </td>
+                    <td
+                      className={`px-4 py-3 font-mono text-xs 
+                      ${
+                        row[2].includes("Critical") ||
+                        row[2].includes("Severe") ||
+                        row[2].includes("Drought") ||
+                        row[2].includes("Drop") ||
+                        row[2].includes("Stress")
+                          ? "text-red-500"
+                          : row[2].includes("Normal") ||
+                              row[2].includes("Good") ||
+                              row[2].includes("Recovery") ||
+                              row[2].includes("Surplus") ||
+                              row[2].includes("Peak Shallow")
+                            ? "text-green-600"
+                            : "text-amber-500"
+                      }`}
                     >
                       {row[2]}
                     </td>
@@ -100,7 +242,10 @@ export default function RainfallPage() {
               </tbody>
             </table>
           </div>
-          <p className="font-sans text-xs text-ink/35 mt-2 italic">Source: Combined CGWB WRIS records and IMD Historical Imputations (Mean: 1129mm).</p>
+          <p className="font-sans text-xs text-ink/35 mt-2 italic">
+            Source: Combined CGWB WRIS records and IMD Historical Imputations
+            (Mean: 1129mm).
+          </p>
         </section>
 
         {/* Correlation analysis */}
@@ -108,23 +253,44 @@ export default function RainfallPage() {
           <p className="section-label mb-4">Correlation Analysis</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="border border-ink/8 bg-white rounded-sm p-6">
-              <p className="font-serif text-lg font-semibold text-ink mb-3">Phase 1: Natural Response (1994–2021)</p>
+              <p className="font-serif text-lg font-semibold text-ink mb-3">
+                Phase 1: Natural Response (1994–2021)
+              </p>
               <div className="flex items-end gap-3 mb-4">
-                <span className="font-mono text-4xl font-medium text-water">Direct</span>
-                <span className="font-sans text-sm text-ink/40 mb-1">correlation</span>
+                <span className="font-mono text-4xl font-medium text-water">
+                  Direct
+                </span>
+                <span className="font-sans text-sm text-ink/40 mb-1">
+                  correlation
+                </span>
               </div>
               <p className="font-sans text-sm text-ink/60 leading-relaxed">
-                During these decades, groundwater was highly responsive to rainfall. High rainfall years like 2006 (1550 mm) or continuous surplus years (2018–2021) successfully replenished the aquifer, keeping depths shallow (hitting a record 3.60 m in 2021). Conversely, prior drought periods like 2009 (820 mm) or 2012 (870 mm) triggered immediate natural drops.
+                During these decades, groundwater was highly responsive to
+                rainfall. High rainfall years like 2006 (1550 mm) or continuous
+                surplus years (2018–2021) successfully replenished the aquifer,
+                keeping depths shallow (hitting a record 3.60 m in 2021).
+                Conversely, prior drought periods like 2009 (820 mm) or 2012
+                (870 mm) triggered immediate natural drops.
               </p>
             </div>
             <div className="border border-ink/8 bg-white rounded-sm p-6">
-              <p className="font-serif text-lg font-semibold text-ink mb-3">Phase 2: The Disconnect (2022–2024)</p>
+              <p className="font-serif text-lg font-semibold text-ink mb-3">
+                Phase 2: The Disconnect (2022–2024)
+              </p>
               <div className="flex items-end gap-3 mb-4">
-                <span className="font-mono text-4xl font-medium text-red-500">Broken</span>
-                <span className="font-sans text-sm text-ink/40 mb-1">correlation</span>
+                <span className="font-mono text-4xl font-medium text-red-500">
+                  Broken
+                </span>
+                <span className="font-sans text-sm text-ink/40 mb-1">
+                  correlation
+                </span>
               </div>
               <p className="font-sans text-sm text-ink/60 leading-relaxed">
-                In the last three years, the natural correlation has completely fractured. Even with statistically strong and consistent rainfall (~1176–1188 mm), pre-monsoon water levels have crashed uncontrollably, plunging from 3.60 m down to 8.27 m by 2024. Rain is suddenly failing to sustain the aquifer.
+                In the last three years, the natural correlation has completely
+                fractured. Even with statistically strong and consistent
+                rainfall (~1176–1188 mm), pre-monsoon water levels have crashed
+                uncontrollably, plunging from 3.60 m down to 8.27 m by 2024.
+                Rain is suddenly failing to sustain the aquifer.
               </p>
             </div>
           </div>
@@ -135,22 +301,42 @@ export default function RainfallPage() {
           <p className="section-label mb-4">Key Findings</p>
           <div className="space-y-3">
             {[
-              { n: '01', t: 'The "Concrete Mantle" Effect', d: 'Rapid urbanization in Ranchi has created impermeable surfaces. Monsoon rains are converting into surface runoff and flash floods rather than percolating to recharge the underlying hard-rock aquifers.' },
-              { n: '02', t: 'Anthropogenic Dominance', d: 'The sudden post-2021 collapse proves that groundwater depletion is no longer a climate-driven issue in Ranchi. It is overwhelmingly driven by unregulated human extraction via deep submersible borewells outpacing the remaining recharge.' },
-              { n: '03', t: 'Low Storage Capacity', d: 'Because Ranchi sits on the Chota Nagpur Plateau (granite/gneiss geology), the aquifers lack primary porosity. They cannot sustain prolonged over-extraction without continuous, active, and unhindered monsoon recharge.' },
+              {
+                n: "01",
+                t: 'The "Concrete Mantle" Effect',
+                d: "Rapid urbanization in Ranchi has created impermeable surfaces. Monsoon rains are converting into surface runoff and flash floods rather than percolating to recharge the underlying hard-rock aquifers.",
+              },
+              {
+                n: "02",
+                t: "Anthropogenic Dominance",
+                d: "The sudden post-2021 collapse proves that groundwater depletion is no longer a climate-driven issue in Ranchi. It is overwhelmingly driven by unregulated human extraction via deep submersible borewells outpacing the remaining recharge.",
+              },
+              {
+                n: "03",
+                t: "Low Storage Capacity",
+                d: "Because Ranchi sits on the Chota Nagpur Plateau (granite/gneiss geology), the aquifers lack primary porosity. They cannot sustain prolonged over-extraction without continuous, active, and unhindered monsoon recharge.",
+              },
             ].map((f) => (
-              <div key={f.n} className="flex gap-5 border border-ink/8 bg-white rounded-sm p-5">
-                <span className="font-mono text-xs text-water/50 shrink-0 pt-0.5">{f.n}</span>
+              <div
+                key={f.n}
+                className="flex gap-5 border border-ink/8 bg-white rounded-sm p-5"
+              >
+                <span className="font-mono text-xs text-water/50 shrink-0 pt-0.5">
+                  {f.n}
+                </span>
                 <div>
-                  <p className="font-sans text-sm font-semibold text-ink mb-1">{f.t}</p>
-                  <p className="font-sans text-sm text-ink/55 leading-relaxed">{f.d}</p>
+                  <p className="font-sans text-sm font-semibold text-ink mb-1">
+                    {f.t}
+                  </p>
+                  <p className="font-sans text-sm text-ink/55 leading-relaxed">
+                    {f.d}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </section>
-
       </div>
     </div>
-  )
+  );
 }
