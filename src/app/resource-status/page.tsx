@@ -21,7 +21,7 @@ export default function ResourceStatusPage() {
       <div className="page-container">
 
         {/* Current status */}
-        <section className="mb-14">
+        <section className="mb-14 selection:bg-blue-100 selection:text-blue-900">
           <p className="section-label mb-6">Current Classification (State Aggregate)</p>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-px bg-ink/8 border border-ink/8">
             {categories.map((c) => (
@@ -39,7 +39,7 @@ export default function ResourceStatusPage() {
         </section>
 
         {/* Resource balance */}
-        <section className="mb-14">
+        <section className="mb-14 selection:bg-blue-100 selection:text-blue-900">
           <p className="section-label mb-6">Resource Balance Sheet</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <DataCard label="Net Annual Availability" value="5.76" unit="BCM" note="Extractable resources (post-natural discharge)" />
@@ -50,7 +50,7 @@ export default function ResourceStatusPage() {
         </section>
 
         {/* Stage gauge */}
-        <section className="mb-14">
+        <section className="mb-14 selection:bg-blue-100 selection:text-blue-900">
           <p className="section-label mb-4">Development Stage Gauge</p>
           <div className="border border-ink/8 bg-white rounded-sm p-6">
             <div className="flex justify-between items-center font-mono text-xs text-ink/40 mb-2">
@@ -113,7 +113,7 @@ export default function ResourceStatusPage() {
 
         {/* CGWB note */}
         <section>
-          <div className="border-l-2 border-water bg-water-faint rounded-r-sm p-5">
+          <div className="border-l-2 border-water bg-water-faint rounded-r-sm p-5 selection:bg-blue-100 selection:text-blue-900">
             <p className="section-label mb-2">Assessment Unit Categorization & Urban Caveat</p>
             <p className="font-sans text-sm text-ink/60 leading-relaxed mb-3">
               As per the March 2024 Dynamic Ground Water Resource Assessment, the overall state falls safely under the <strong>Safe (31.42%)</strong> category, an increase from 31.38% in 2023. Out of 263 assessment units (259 blocks and 4 urban centres), <strong>240 units (91.25%) remain Safe</strong>. 
