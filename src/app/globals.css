@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -23,10 +24,33 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Update the main body to use Jakarta if desired, or keep DM Sans as the secondary */
 body {
   background: #fafaf8;
   color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif; /* Changed from DM Sans */
+}
+
+@layer base {
+  ::selection {
+    @apply bg-water-pale text-blue-900;
+  }
+  ::-moz-selection {
+    @apply bg-water-pale text-blue-900;
+  }
+}
+
+@layer components {
+  /* This was previously font-serif (Lora). Now it uses Jakarta. */
+  .display-heading {
+    @apply font-sans font-bold text-ink leading-tight tracking-tight;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Ensuring labels and numbers stay crisp */
+  .section-label, .chapter-number {
+    @apply font-mono text-[11px] text-blue-600/60 tracking-widest uppercase;
+  }
 }
 
 /* Topographic line pattern */
@@ -161,4 +185,33 @@ body {
 
 .call-to-action-button:hover {
     background-color: #1a5ac7; /* Darker on hover */
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(98, 211, 219, 0.3) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(98, 211, 219, 0.3);
+  border-radius: 10px;
+  border: 3px solid var(--bg); 
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 169, 110, 0.6);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg);
 }
