@@ -27,28 +27,111 @@ export default function DataAnalysisPage() {
         </section>
 
         {/* Chart 1 */}
-        <section className="mb-14">
-          <p className="section-label mb-2">Chart 01 — Temporal Trend</p>
-          <ChartEmbed
-            title="Groundwater Level Variation with Time (1995–2024)"
-            caption="Pre-monsoon depth (m below ground level) plotted annually. Shows historical volatility, a decade of unusual shallowness, followed by a severe and continuous decline from 2021 onwards."
-            height="h-80"
-            placeholder="Replace: export your 'Groundwater_Level_vs_Year.png' from Jupyter and place in /public/charts/"
-            src="/charts/Groundwater_Level_vs_Year.png"
-          />
-        </section>
+        {/* Chart 1 */}
+<section className="mb-14">
+  <p className="section-label mb-2">Chart 01 — Average Groundwater Trend</p>
+
+  <ChartEmbed
+    title="Average Groundwater Level Trend (1995–2024)"
+    caption="Average groundwater depth calculated as the mean of pre-monsoon and post-monsoon levels. The trend line highlights the long-term behavior of the aquifer, smoothing seasonal variations and revealing overall depletion or recovery patterns."
+    height="h-105"
+    src="/charts/avg_groundwater_trend.png"
+  />
+
+  {/* Code Accordion */}
+  <details className="mt-4 border border-ink/10 rounded-sm p-4 bg-gray-50">
+    <summary className="cursor-pointer font-mono text-sm text-ink/60">
+      View Python Code
+    </summary>
+
+    <pre className="mt-3 text-xs overflow-x-auto">
+{`import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+df = pd.read_excel("final_dataset.xlsx")
+
+df["Average Groundwater Level (m)"] = df[["Pre-Monsoon","Post-Monsoon"]].mean(axis=1)
+
+x = df["Year"]
+y = df["Average Groundwater Level (m)"]
+
+coef = np.polyfit(x, y, 1)
+trend = np.poly1d(coef)
+
+plt.figure(figsize=(12,6))
+plt.plot(x, y, marker='o', linewidth=2, label="Average Groundwater Level")
+plt.plot(x, trend(x), linestyle='--', linewidth=2, label="Trend Line")
+
+plt.xlabel("Year")
+plt.ylabel("Average Groundwater Depth (m bgl)")
+plt.title("Average Groundwater Level with Trend")
+
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.5)
+
+plt.tight_layout()
+plt.savefig("avg_groundwater_trend.png", dpi=300)
+plt.show()`}
+    </pre>
+  </details>
+</section>
 
         {/* Chart 2 */}
-        <section className="mb-14">
-          <p className="section-label mb-2">Chart 02 — Seasonal Comparison</p>
-          <ChartEmbed
-            title="Pre-Monsoon vs Post-Monsoon Groundwater Levels"
-            caption="Grouped bar chart comparing pre-monsoon and post-monsoon water levels. Illustrates the seasonal recharge capacity and how it is beginning to fail against rising extraction."
-            height="h-80"
-            placeholder="Replace: export your 'Pre_vs_Post_Monsoon_Bar.png' from Jupyter and place in /public/charts/"
-            src="/charts/Pre_vs_Post_Monsoon_Bar.png"
-          />
-        </section>
+<section className="mb-14">
+  <p className="section-label mb-2">Chart 02 — Seasonal Trend Analysis</p>
+
+  <ChartEmbed
+    title="Pre-Monsoon vs Post-Monsoon Groundwater Levels with Trend"
+    caption="Comparison of pre-monsoon and post-monsoon groundwater depths along with their trend lines. This illustrates seasonal recharge behavior and highlights whether groundwater conditions are improving or deteriorating over time."
+    height="h-105"
+    src="/charts/pre_post_trend.png"
+  />
+
+  {/* Code Accordion */}
+  <details className="mt-4 border border-ink/10 rounded-sm p-4 bg-gray-50">
+    <summary className="cursor-pointer font-mono text-sm text-ink/60">
+      View Python Code
+    </summary>
+
+    <pre className="mt-3 text-xs overflow-x-auto">
+{`import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+df = pd.read_excel("final_dataset.xlsx")
+
+x = df["Year"]
+pre = df["Pre-Monsoon"]
+post = df["Post-Monsoon"]
+
+pre_coef = np.polyfit(x, pre, 1)
+post_coef = np.polyfit(x, post, 1)
+
+pre_trend = np.poly1d(pre_coef)
+post_trend = np.poly1d(post_coef)
+
+plt.figure(figsize=(12,6))
+
+plt.plot(x, pre, marker='o', linewidth=2, label="Pre-Monsoon")
+plt.plot(x, post, marker='s', linewidth=2, label="Post-Monsoon")
+
+plt.plot(x, pre_trend(x), linestyle='--', linewidth=2, label="Pre Trend Line")
+plt.plot(x, post_trend(x), linestyle='--', linewidth=2, label="Post Trend Line")
+
+plt.xlabel("Year")
+plt.ylabel("Groundwater Depth (m bgl)")
+plt.title("Pre vs Post Monsoon with Trend Lines")
+
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.5)
+
+plt.tight_layout()
+plt.savefig("pre_post_trend.png", dpi=300)
+plt.show()`}
+    </pre>
+  </details>
+</section>
 
         <SectionDivider label="Trend Interpretation" />
 
