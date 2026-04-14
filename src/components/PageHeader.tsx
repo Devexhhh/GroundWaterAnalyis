@@ -7,7 +7,7 @@ interface PageHeaderProps {
 
 export default function PageHeader({ chapter, title, subtitle, description }: PageHeaderProps) {
   return (
-    <div className="topo-bg border-b border-ink/8 bg-water-faint">
+    <div className="topo-bg border-b border-ink/8 bg-water-faint selection:bg-blue-100 selection:text-blue-900">
       <div className="max-w-5xl mx-auto px-6 pt-16 pb-14">
         <p className="chapter-number mb-4">{chapter}</p>
         <h1 className="display-heading text-4xl sm:text-5xl max-w-2xl mb-4">{title}</h1>
