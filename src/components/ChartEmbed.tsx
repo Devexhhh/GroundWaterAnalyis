@@ -14,7 +14,7 @@ export default function ChartEmbed({
   placeholder = 'Insert your exported chart image here'
 }: ChartEmbedProps) {
   return (
-    <figure className="my-8">
+    <figure className="my-8 selection:bg-blue-100 selection:text-blue-900">
       <div className={`border border-ink/10 bg-white rounded-sm overflow-hidden ${height}`}>
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
