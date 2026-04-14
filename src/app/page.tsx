@@ -1,18 +1,4 @@
 import Link from 'next/link'
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
-
-// Modern, ultra-minimal typography pairing
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-jakarta',
-  display: 'swap',
-});
 
 const sections = [
   { num: '01', href: '/study-area', label: 'Study Area', desc: 'Geographic location, coordinates, population and agro-climatic classification of Ranchi District.' },
@@ -26,7 +12,7 @@ const sections = [
 
 export default function HomePage() {
   return (
-    <div className={`${inter.variable} ${jakarta.variable} font-sans min-h-screen relative selection:bg-blue-100 selection:text-blue-900`}>
+    <div className={`font-sans min-h-screen relative selection:bg-blue-100 selection:text-blue-900`}>
       {/* Hero */}
       <section className="topo-bg bg-water-faint border-b border-ink/8 min-h-[90vh] flex flex-col justify-center">
         <div className="max-w-5xl mx-auto px-6 py-24">
