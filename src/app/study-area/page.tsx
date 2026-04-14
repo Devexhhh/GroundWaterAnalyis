@@ -1,6 +1,20 @@
 import PageHeader from '@/components/PageHeader'
 import DataCard from '@/components/DataCard'
 import SectionDivider from '@/components/SectionDivider'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+
+// Modern, ultra-minimal typography pairing
+const inter = Inter({ 
+  subsets: ['latin'], 
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const jakarta = Plus_Jakarta_Sans({ 
+  subsets: ['latin'], 
+  variable: '--font-jakarta',
+  display: 'swap',
+});
 
 const coordData = [
   { label: 'Latitude', value: '22°52′–23°43′N' },
@@ -18,7 +32,7 @@ const facts = [
 
 export default function StudyAreaPage() {
   return (
-    <div>
+    <div className={`${inter.variable} ${jakarta.variable} font-sans min-h-screen relative selection:bg-blue-100 selection:text-blue-900`}>
       <PageHeader
         chapter="Chapter 01 — Study Area"
         title="Ranchi District"
