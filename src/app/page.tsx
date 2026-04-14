@@ -2,14 +2,14 @@ import Link from 'next/link'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 
 // Modern, ultra-minimal typography pairing
-const inter = Inter({ 
-  subsets: ['latin'], 
+const inter = Inter({
+  subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 });
 
-const jakarta = Plus_Jakarta_Sans({ 
-  subsets: ['latin'], 
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
   variable: '--font-jakarta',
   display: 'swap',
 });
@@ -30,7 +30,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="topo-bg bg-water-faint border-b border-ink/8 min-h-[90vh] flex flex-col justify-center">
         <div className="max-w-5xl mx-auto px-6 py-24">
-          <p className="section-label mb-6">Hydrological Study · Jharkhand · 2024</p>
+          <p className="section-label mb-6">Hydrological Study · Ranchi · 2026</p>
 
           <h1 className="font-jakarta font-medium text-slate-900 leading-[1.05] tracking-tight text-5xl sm:text-6xl lg:text-[5.5rem] mb-8">
             Assessment of <br className="hidden sm:block" />
