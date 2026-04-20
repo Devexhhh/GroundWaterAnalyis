@@ -17,7 +17,7 @@ export default function HomePage() {
       <section className="topo-bg bg-water-faint border-b border-ink/8 min-h-[90vh] flex flex-col justify-center">
         {/* Adjusted vertical padding for mobile (py-16) and larger screens (md:py-24) */}
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24">
-          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base">Hydrological Study · Ranchi · 2026</p>
+          <p className="section-label mb-4 sm:mb-6 text-sm sm:text-base pt-16">Hydrological Study · Ranchi · 2026</p>
 
           <h1 className="font-jakarta font-medium text-slate-900 leading-[1.1] tracking-tight text-4xl sm:text-6xl lg:text-[5.5rem] mb-6 sm:mb-8">
             Assessment of <br className="hidden sm:block" />
