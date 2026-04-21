@@ -139,8 +139,8 @@ export default function Nav() {
             {/* Modern Mobile Download Button */}
             <div className="mt-4 pt-4 border-t border-slate-100">
               <a
-                href="/downloads/Ranchi_Groundwater_Report.docx"
-                download="Ranchi_Groundwater_Report.docx"
+                href="/downloads/GroundWater_Analysis_KUMAR_SUJAL.docx"
+                download="Ranchi_Groundwater_Report_KUMAR_SUJAL.docx"
                 className="flex items-center justify-center gap-3 p-4 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl shadow-lg shadow-blue-600/20 active:scale-[0.98] transition-all duration-300"
               >
                 <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
